@@ -10,6 +10,7 @@ import {
 import Googlemaps from "./android/app/src/Screens/Googlemaps";
 import Bottomsheet from "./android/app/src/Screens/Bottomsheet";
 
+
 function App(){
   const darkmode = useColorScheme() === "dark"
   return(
@@ -17,6 +18,7 @@ function App(){
 
     <Googlemaps />
     <Bottomsheet/>
+    
     
     </SafeAreaView>
   )
