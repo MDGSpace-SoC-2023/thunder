@@ -8,69 +8,10 @@ import {
       useColorScheme,
       Button,
 } from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import { HomeStackScreen, ServicesStackScreen, NotificationStackScreen, AccountStackScreen} from './android/app/src/Screens/Routes/StackNavigation';
-import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Search from "./android/app/src/Screens/Search";
-
-const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
-
-
-function EmptyScreen() {
-  return <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'black' }}><Text>Hello</Text></View>;
-}
-
-function Home({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Search"
-        onPress={() => navigation.navigate('Profile')}
-      />
-    </View>
-  );
-}
-
-function Services({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Search"
-        onPress={() => navigation.navigate('Profile')}
-      />
-    </View>
-  );
-}
-function Notifications({ navigation }) {
-return <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'black' }}><Text>Hello</Text></View>;
-}
-function Account({ navigation }) {
-return <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'black' }}><Text>Hello</Text></View>;
-}
-function HomeTabs() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Services" component={Services} />
-      <Tab.Screen name="Notifications" component={Notifications} />
-      <Tab.Screen name="Account" component={Account} />
-    </Tab.Navigator>
-  );
-}
-
+import Home1 from "./Src/Screens/Home/Home1";
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="home" component={HomeTabs} options={{ headerShown: false }} />
-        <Stack.Screen name="Profile" component={Search} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Home1 />
   );
 }
 

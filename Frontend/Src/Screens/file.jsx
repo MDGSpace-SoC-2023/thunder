@@ -2,7 +2,7 @@
 // import {View, Text, StyleSheet} from 'react-native';
 // import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 
-const {PERMISSIONS} = require('react-native-permissions');
+// const {PERMISSIONS} = require('react-native-permissions');
 
 // function Googlemaps() {
 //   const [markerlist, setmarkerlist] = useState([]);
@@ -119,3 +119,91 @@ const {PERMISSIONS} = require('react-native-permissions');
 //     </View>
 //   );
 // }
+
+// issue with stacking of screens
+
+// const HomeStack = createNativeStackNavigator();
+// const ServicesStack = createNativeStackNavigator();
+// const NotificationStack = createNativeStackNavigator();
+// const AccountStack = createNativeStackNavigator();
+
+// function HomeScreen({navigation}) {
+//   return (
+//     <View style={{flex: 1, alignItems: 'top', justifyContent: 'top'}}>
+//       <Text>Home Screen</Text>
+//       <Button
+//         title="Go to Search"
+//         onPress={() => navigation.navigate('Search')}
+//       />
+//     </View>
+//   );
+// }
+
+// function HomeStackScreen() {
+//   return (
+//     <HomeStack.Navigator>
+//       <HomeStack.Screen
+
+//         name="Home1"
+//         component={HomeScreen}
+//         options={{headerShown: false}}
+//       />
+//       <HomeStack.Screen
+//         name="Search"
+//         component={Search}
+//         options={{tabbarstyle: {display: 'none'}}}
+//       />
+//       {/* <HomeStack.Screen name="Bottomsheet" component={Bottomsheet} /> */}
+//     </HomeStack.Navigator>
+//   );
+// }
+
+// function ServicesStackScreen() {
+//   return (
+//     <ServicesStack.Navigator>
+//       <ServicesStack.Screen
+//         name="Search1"
+//         component={HomeScreen}
+//         options={{headerShown: false}}
+//       />
+//     </ServicesStack.Navigator>
+//   );
+// }
+
+// function NotificationStackScreen() {
+//   return (
+//     <NotificationStack.Navigator>
+//       <NotificationStack.Screen
+//         name="Notifications"
+//         component={Notification}
+//         options={{headerShown: false}}
+//       />
+//     </NotificationStack.Navigator>
+//   );
+// }
+
+// function AccountStackScreen() {
+//   return (
+//     <AccountStack.Navigator>
+//       <AccountStack.Screen
+//         name="Account"
+//         component={Accounts}
+//         options={{headerShown: false}}
+//       />
+//     </AccountStack.Navigator>
+//   );
+// }
+
+// export {
+//   HomeStackScreen,
+//   ServicesStackScreen,
+//   NotificationStackScreen,
+//   AccountStackScreen,
+// };
+
+// Method to get route name
+// const getRouteName = (route) => {
+//     const routename = route.name;
+//     console.log(routename)
+//     return routename;
+//   }
