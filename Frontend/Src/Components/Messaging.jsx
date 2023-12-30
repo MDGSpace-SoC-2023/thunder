@@ -2,27 +2,16 @@ import React, {useState, useCallback, useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat';
 
-function Example() {
-  const [messages, setMessages] = useState([]);
+function Messaging({id, chat}) {
+  const [messages, setMessages] = useState(chat.messages);
 
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-    ]);
-  }, []);
+    setMessages(chat.messages);
+  }, [chat]);
 
-  const onSend = useCallback((messages = []) => {
+  const onSend = useCallback((newMessage = []) => {
     setMessages(previousMessages =>
-      GiftedChat.append(previousMessages, messages),
+      GiftedChat.append(previousMessages, newMessage),
     );
   }, []);
 
@@ -50,4 +39,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Example;
+export default Messaging;

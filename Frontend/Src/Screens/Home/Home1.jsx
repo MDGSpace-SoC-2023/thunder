@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -13,8 +13,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+import Messaging from '../../Components/Messaging';
 import Search from '../Search';
-import Example from '../Notification/Chat';
+import MultiChat from '../Notification/MultiChat';
 
 function EmptyScreen() {
   return (
@@ -54,16 +55,26 @@ function Services({navigation}) {
   );
 }
 function Notifications({navigation}) {
+  const chatRoomId = 'unique-chat-room-id'; // Replace this with your actual chat room ID
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const openChat = () => {
+    if (!isChatOpen) {
+      navigation.navigate('Chatserver', {chatRoomId});
+      setIsChatOpen(true);
+    } else {
+      navigation.navigate('Chatserver');
+    }
+  };
+
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Notification Screen</Text>
-      <Button
-        title="Go to chat"
-        onPress={() => navigation.navigate('Chatserver')}
-      />
+      <Button title="Go to chat" onPress={openChat} />
     </View>
   );
 }
+
 function Account({navigation}) {
   return (
     <View
@@ -98,7 +109,12 @@ function Home1() {
           options={{headerShown: false}}
         />
         <Stack.Screen name="Profile" component={Search} />
-        <Stack.Screen name="Chatserver" component={Example} />
+        <Stack.Screen
+          name="Chatserver"
+          component={MultiChat}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen name="Messaging" component={Messaging} />
       </Stack.Navigator>
     </NavigationContainer>
   );
