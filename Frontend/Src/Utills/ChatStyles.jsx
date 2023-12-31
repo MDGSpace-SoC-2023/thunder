@@ -75,6 +75,12 @@ export const ChatStyles = StyleSheet.create({
   messagingscreen: {
     flex: 1,
   },
+  chaticon: {
+    width: 30,
+    height: 30,
+    borderRadius: 50,
+    color: 'green',
+  },
   messaginginputContainer: {
     width: '100%',
     minHeight: 100,

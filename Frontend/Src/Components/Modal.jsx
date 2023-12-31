@@ -1,6 +1,6 @@
 import {View, Text, TextInput, Pressable} from 'react-native';
 import React, {useState} from 'react';
-import {styles} from '../utils/styles';
+import {ChatStyles} from '../Utills/ChatStyles';
 
 const Modal = ({setVisible}) => {
   const [groupName, setGroupName] = useState('');
@@ -14,22 +14,22 @@ const Modal = ({setVisible}) => {
     closeModal();
   };
   return (
-    <View style={styles.modalContainer}>
-      <Text style={styles.modalsubheading}>Enter your Group name</Text>
+    <View style={ChatStyles.modalContainer}>
+      <Text style={ChatStyles.modalsubheading}>Enter your Group name</Text>
       <TextInput
-        style={styles.modalinput}
+        style={ChatStyles.modalinput}
         placeholder="Group name"
         onChangeText={value => setGroupName(value)}
       />
 
-      <View style={styles.modalbuttonContainer}>
-        <Pressable style={styles.modalbutton} onPress={handleCreateRoom}>
-          <Text style={styles.modaltext}>CREATE</Text>
+      <View style={ChatStyles.modalbuttonContainer}>
+        <Pressable style={ChatStyles.modalbutton} onPress={handleCreateRoom}>
+          <Text style={ChatStyles.modaltext}>CREATE</Text>
         </Pressable>
         <Pressable
-          style={[styles.modalbutton, {backgroundColor: '#E14D2A'}]}
+          style={[ChatStyles.modalbutton, {backgroundColor: '#E14D2A'}]}
           onPress={closeModal}>
-          <Text style={styles.modaltext}>CANCEL</Text>
+          <Text style={ChatStyles.modaltext}>CANCEL</Text>
         </Pressable>
       </View>
     </View>

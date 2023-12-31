@@ -19,18 +19,12 @@ const ChatComponent = ({item}) => {
     navigation.navigate('Messaging', {
       id: item.id,
       name: item.name,
+      title: item.name + "'s Chat",
     });
   };
 
   return (
     <Pressable style={ChatStyles.cchat} onPress={handleNavigation}>
-      {/* <Ionicons
-        name="person-circle-outline"
-        size={45}
-        color="black"
-        style={ChatStyles.cavatar}
-      /> */}
-
       <View style={ChatStyles.crightContainer}>
         <View>
           <Text style={ChatStyles.cusername}>{item.name}</Text>

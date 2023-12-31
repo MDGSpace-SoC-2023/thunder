@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import ChatComponent from '../../Components/ChatComponent';
 import {ChatStyles} from '../../Utills/ChatStyles';
+import Modal from '../../Components/Modal';
 
 const Multichat = () => {
   //👇🏻 Dummy list of rooms
@@ -50,6 +51,7 @@ const Multichat = () => {
       ],
     },
   ];
+  const [visible, setVisible] = useState(false);
 
   return (
     <SafeAreaView style={ChatStyles.chatscreen}>
@@ -58,8 +60,10 @@ const Multichat = () => {
           <Text style={ChatStyles.chatheading}>Chats</Text>
 
           {/* 👇🏻 Logs "ButtonPressed" to the console when the icon is clicked */}
-          <Pressable onPress={() => console.log('Button Pressed!')}>
+          <Pressable onPress={() => setVisible(true)}>
             {/* <Feather name="edit" size={24} color="green" /> */}
+
+            <Text style={ChatStyles.chaticon}>+</Text>
           </Pressable>
         </View>
       </View>
@@ -78,6 +82,11 @@ const Multichat = () => {
           </View>
         )}
       </View>
+      {/*
+                Pass setVisible as prop in order to toggle 
+                the display within the Modal component.
+            */}
+      {visible ? <Modal setVisible={setVisible} /> : ''}
     </SafeAreaView>
   );
 };
