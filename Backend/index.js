@@ -12,7 +12,8 @@ const io = new Server(server);
 
 app.use(cors());
 
-
+rides = [];
+drives = [];
 server.listen(PORT, () => {
   console.log("server running at http://localhost:3000");
 });
