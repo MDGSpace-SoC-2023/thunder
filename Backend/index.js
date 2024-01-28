@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { Server } from "socket.io";
+import { Server } from 'socket.io';
 import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -11,6 +11,10 @@ const server = createServer(app);
 const io = new Server(server);
 
 app.use(cors());
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
 
 rides = [];
 drives = [];

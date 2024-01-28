@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,22 +11,55 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+import {
+  useSDK,
+  MetaMaskProvider,
+  SDKConfigProvider,
+  useSDKConfig,
+} from '@metamask/sdk-react';
 import Messaging from '../../Components/Messaging';
 import Search from '../Search';
 import MultiChat from '../Notification/MultiChat';
-
+import connectWallet from '../Connect/ConnecWallet';
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 function EmptyScreen() {
+  const connectWallet = async () => {
+    try {
+      await connect();
+    } catch (error) {
+      console.error('Failed to connect wallet:', error);
+    }
+  };
+
+  const disconnectWallet = async () => {
+    try {
+      await disconnect();
+    } catch (error) {
+      console.error('Failed to disconnect wallet:', error);
+    }
+  };
+
   return (
     <View
       style={{
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'black',
+        backgroundColor: 'gray',
       }}>
-      <Text>Hello</Text>
+      <Button
+        title="Connect"
+        onPress={() => {
+          connectWallet();
+        }}
+      />
+      <Button
+        title="Disconnect"
+        onPress={() => {
+          disconnectWallet();
+        }}
+      />
     </View>
   );
 }
@@ -103,6 +136,11 @@ function Home1() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name="Connect Metamask Wallet"
+          component={connectWallet}
+          title="Connect Metamask Wallet"
+        />
         <Stack.Screen
           name="home"
           component={HomeTabs}

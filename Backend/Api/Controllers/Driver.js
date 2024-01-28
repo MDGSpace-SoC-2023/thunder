@@ -2,7 +2,7 @@
 
 export async function acceptRideRequest(req, res, rides, drives) {
   const { driver_Id } = req.params;
-  const { ride_Id, time } = req.body;
+  const { ride_Id, time, distance } = req.body;
 
   const driverobj = {
     drives_number: 1,
@@ -77,11 +77,9 @@ export async function cancelRideRequest(req, res, rides, drives) {
           .json({ message: "Ride request cancelled successfully" });
       }
     } else {
-      return res
-        .status(400)
-        .json({
-          error: `Ride request with id ${ride_Id} not in requested status`,
-        });
+      return res.status(400).json({
+        error: `Ride request with id ${ride_Id} not in requested status`,
+      });
     }
   } else {
     return res
@@ -90,8 +88,51 @@ export async function cancelRideRequest(req, res, rides, drives) {
   }
 }
 
-// function to emit the driver location to the server constantly
-
 // function to check id driver has reached the rider pickup location with checking the distance
+export async function pickupReached(req, res, rides, drives) {
+  const { driver_Id } = req.params;
+  const { ride_Id, time, pickup_Distance } = req.body;
+  if (pickup_Distance <= 500) {
+    const Drive_Index = drives.findIndex(
+      (drive) => drive.driver_Id === parseInt(driver_Id)
+    );
+    if (Drive_Index === -1) {
+      res.status(200).json({ message: "Ride request cancelled successfully" });
+    } else {
+      drives[Drive_Index].status = "reached";
+      drives[Drive_Index].time = time;
+      drives[Drive_Index].drive_list.push({
+        ride_Id,
+        time,
+        status: "reached",
+      });
+      res.status(200).json({ message: "Too far from pickup location" });
+    }
+  }
+}
 
 // function to check if driver has reached the destination with checking the distance
+
+export async function destinationReached(req, res, rides, drives) {
+  const { driver_Id } = req.params;
+  const { ride_Id, time, pickup_Distance } = req.body;
+  if (pickup_Distance <= 500) {
+    const Drive_Index = drives.findIndex(
+      (drive) => drive.driver_Id === parseInt(driver_Id)
+    );
+    if (Drive_Index === -1) {
+      res.status(200).json({ message: "Ride request cancelled successfully" });
+    } else {
+      drives[Drive_Index].status = "completed";
+      drives[Drive_Index].time = time;
+      drives[Drive_Index].drive_list.push({
+        ride_Id,
+        time,
+        status: "completed",
+      });
+      res.status(200).json({ message: "Too far from Drop location" });
+    }
+  }
+}
+
+// function to emit the driver location to the server constantly
