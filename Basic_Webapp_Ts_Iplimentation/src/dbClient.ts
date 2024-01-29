@@ -6,7 +6,7 @@ import { MongoClient } from 'mongodb';
 import config from './config';
 
 // const uri = config.mongoConnString;
-const uri = 'mongodb+srv://shrishvesh:shrishvesh5164898@cluster0.euc9vla.mongodb.net/?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://shrishvesh:<password>@cluster0.euc9vla.mongodb.net/?retryWrites=true&w=majority&ssl=true';
 let db: MongoClient;
 
 /**

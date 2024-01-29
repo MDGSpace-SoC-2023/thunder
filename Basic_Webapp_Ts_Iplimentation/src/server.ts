@@ -39,7 +39,6 @@ server.listen(app.get('port'), async () => {
     const GREEN_LINE = '\x1b[32m%s\x1b[0m';
     console.log(GREEN_LINE, 'Server started');
     console.log(`Port: ${app.get('port')}`);
-    console.log(`Environment: ${app.get('env')}`);
   } catch (error) {
     console.error(error);
   }

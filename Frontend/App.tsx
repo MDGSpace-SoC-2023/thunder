@@ -14,6 +14,8 @@ import '@walletconnect/react-native-compat'
 import { WagmiConfig } from 'wagmi'
 import { mainnet, polygon, arbitrum } from 'viem/chains'
 import { createWeb3Modal, defaultWagmiConfig, Web3Modal } from '@web3modal/wagmi-react-native'
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+
 
 
 const projectId = '844e6accb15fcc38dda0c141621a2dd4';
@@ -40,7 +42,6 @@ createWeb3Modal({
 
  function App() {
   return (
-      //  <Home1 />
       <WagmiConfig config={wagmiConfig}>
         <Home1 />
         <Web3Modal />
