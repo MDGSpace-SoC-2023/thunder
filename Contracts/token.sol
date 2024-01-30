@@ -11,7 +11,10 @@ address owner;
 constructor() ERC20("Hydro", "HD"){
 owner = msg.sender;
 }
-Hydro.balanceOf(address ab) public view virtual returns (uint256) {
-        return _balances[ab];
+    function balanceOf(address account) public view override returns (uint256) {
+        return balanceOf(account);
     }
 }
+    // function balanceOf(address account) public view virtual returns (uint256) {
+    //     return _balances[account];
+    // }
