@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,21 +11,55 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {
+  useSDK,
+  MetaMaskProvider,
+  SDKConfigProvider,
+  useSDKConfig,
+} from '@metamask/sdk-react';
+import Messaging from '../../Components/Messaging';
+import Search from '../Search';
+import MultiChat from '../Notification/MultiChat';
+import connectWallet from '../Connect/ConnecWallet';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-import Search from '../Search';
-import Example from '../Notification/Chat';
-
 function EmptyScreen() {
+  const connectWallet = async () => {
+    try {
+      await connect();
+    } catch (error) {
+      console.error('Failed to connect wallet:', error);
+    }
+  };
+
+  const disconnectWallet = async () => {
+    try {
+      await disconnect();
+    } catch (error) {
+      console.error('Failed to disconnect wallet:', error);
+    }
+  };
+
   return (
     <View
       style={{
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'black',
+        backgroundColor: 'gray',
       }}>
-      <Text>Hello</Text>
+      <Button
+        title="Connect"
+        onPress={() => {
+          connectWallet();
+        }}
+      />
+      <Button
+        title="Disconnect"
+        onPress={() => {
+          disconnectWallet();
+        }}
+      />
     </View>
   );
 }
@@ -54,16 +88,26 @@ function Services({navigation}) {
   );
 }
 function Notifications({navigation}) {
+  const chatRoomId = 'unique-chat-room-id'; // Replace this with your actual chat room ID
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const openChat = () => {
+    if (!isChatOpen) {
+      navigation.navigate('Chatserver', {chatRoomId});
+      setIsChatOpen(true);
+    } else {
+      navigation.navigate('Chatserver');
+    }
+  };
+
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Notification Screen</Text>
-      <Button
-        title="Go to chat"
-        onPress={() => navigation.navigate('Chatserver')}
-      />
+      <Button title="Go to chat" onPress={openChat} />
     </View>
   );
 }
+
 function Account({navigation}) {
   return (
     <View
@@ -93,12 +137,22 @@ function Home1() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
+          name="Connect Metamask Wallet"
+          component={connectWallet}
+          title="Connect Metamask Wallet"
+        />
+        <Stack.Screen
           name="home"
           component={HomeTabs}
           options={{headerShown: false}}
         />
         <Stack.Screen name="Profile" component={Search} />
-        <Stack.Screen name="Chatserver" component={Example} />
+        <Stack.Screen
+          name="Chatserver"
+          component={MultiChat}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen name="Messaging" component={Messaging} />
       </Stack.Navigator>
     </NavigationContainer>
   );
