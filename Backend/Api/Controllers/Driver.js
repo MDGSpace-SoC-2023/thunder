@@ -1,3 +1,12 @@
+//function for driver to sign up
+import ethers from "ethers";
+export async function signup(req, res) {
+  const { name, email, password } = req.body;
+  res.status(200).json({ message: "Driver signed up successfully" });
+}
+
+// function for driver to login with email and password through smart contracts
+
 // function to accept ride request from rider
 
 export async function acceptRideRequest(req, res, rides, drives) {

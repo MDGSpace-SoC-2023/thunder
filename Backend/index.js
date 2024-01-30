@@ -5,7 +5,8 @@ import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import dbConnect from "./dbclient";
-
+import { ethers } from "ethers";
+import CarpoolingABI from "../Contracts/CarpoolingABI";
 const PORT = 5000;
 const app = express();
 const server = createServer(app);
@@ -20,12 +21,18 @@ app.use(cors());
 io.on("connection", (socket) => {
   console.log("a user connected");
 });
+const contractAddress = "";
+const web3provider = new ethers.providers.WebSocketProvider(
+  process.env.Alchemy_API
+);
+// contract instance for web3
+const contract = new ethers.Contract(contractAddress, , web3provider);
 
-rides = [];
-drives = [];
-server.listen(PORT, () => {
+server.listen(PORT, async () => {
   try {
-    dbConnect();
+    await dbConnect();
+    console.log('node version', process.version);
+    console.log(`Port: ${PORT}`);
   } catch (err) {
     console.log(err);
   }

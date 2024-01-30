@@ -1,6 +1,51 @@
+import { providers, Contract } from "ethers";
+import { ethers } from "ethers";
+import CarpoolingABI from "../../contracts/CarpoolingABI.json";
+import { saveRiderToMongoDB } from "../Modals/Rider.js";
+const contractAddress = "0x80dcca20399e5d760360eb638cd53e79422f910d";
+const web3provider = new ethers.providers.WebSocketProvider(
+  process.env.Alchemy_API
+);
+const provider = new ethers.providers.json();
+const contract = new ethers.Contract(
+  contractAddress,
+  CarpoolingABI,
+  web3provider
+);
+// contract instance for web3
+
+// rider sign up through smart contract
+
+export async function rideSignUp(req, res) {
+  const { name, contact, password, username } = req.body;
+  const sign_Up_Rider = await contract.Sign_up_rider(name, contact, password);
+
+  sign_Up_Rider.on("Sign_up_rider_successfuly", (rider) => {
+    let riderInfo = {
+      address: rider,
+      name: name,
+      contact: contact,
+      password: password,
+    };
+
+    saveRiderToMongoDB(riderInfo);
+
+    // populate the data base
+    if (address) {
+      res.status(200).json({
+        status: "success",
+        message: "Rider signed up successfully",
+        data: info,
+      });
+    }
+  });
+}
+
+// function for driver to login with email and password through smart contracts
+
 //code for sending ride request
 
-export async function rideRequest(req, res , drives) {
+export async function rideRequest(req, res, drives) {
   const {
     rider_id,
     pickup_lat,

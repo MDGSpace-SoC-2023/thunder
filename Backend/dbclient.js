@@ -20,4 +20,4 @@ const dbConnect = async () => {
   }
 };
 
-module.exports = dbConnect;
+export default dbConnect;
